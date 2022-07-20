@@ -89,7 +89,7 @@ class TranslateCommand extends Command
                 $translator->saveTranslations($collection, 'json', $locale);
             }
             else {
-                if ($this->ask('\nTotal phrases:'.$totalStrings.'. Total Characters: '.$totalChars.' Do you want to translate them? (yes/no)','yes')) {
+                if ($this->ask("\n".'Total phrases:'.$totalStrings.'. Total Characters: '.$totalChars.' Do you want to translate them? (yes/no)','yes')) {
                     $translationsProgressBar = $this->output->createProgressBar($totalStrings);
                     $translationsProgressBar->setMessage("Translating strings for ".$locale."...");
                     $translationsProgressBar->setFormat('%current%/%max% [%bar%] %percent:3s%% %message%');
@@ -109,7 +109,7 @@ class TranslateCommand extends Command
         $progressBar->finish();
 
         $this->info(
-            "\nTranslatable strings have been collected for locale(s): ".implode(', ', $locales)
+            "\nTranslatable strings have been extracted and transferred for locale(s): ".implode(', ', $locales)
         );
 
         return 0;
