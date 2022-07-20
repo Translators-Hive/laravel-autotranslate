@@ -75,10 +75,15 @@ class TranslateCommand extends Command
                             $value = $key;
                         }
                         $strings[$key] = $value;
-                        $totalChars += mb_strlen($key);
+                        $totalChars += mb_strlen($value);
                         $totalStrings++;
                     }
                     else {
+                        if(array_key_exists($key,$strings)) {
+                            $totalChars -= mb_strlen($strings[$key]);
+                            $totalStrings--;
+                            unset($strings[$key]);
+                        }
                         $collection->put($key,__($key,[],$locale));
                     }
                 }
@@ -89,7 +94,7 @@ class TranslateCommand extends Command
                 $translator->saveTranslations($collection, 'json', $locale);
             }
             else {
-                if ($this->ask("\n".'Total phrases:'.$totalStrings.'. Total Characters: '.$totalChars.' Do you want to translate them? (yes/no)','yes')) {
+                if ($this->ask("\n".'Total phrases: '.$totalStrings.'. Total Characters: '.$totalChars.' Do you want to translate them? (yes/no)','yes')) {
                     $translationsProgressBar = $this->output->createProgressBar($totalStrings);
                     $translationsProgressBar->setMessage("Translating strings for ".$locale."...");
                     $translationsProgressBar->setFormat('%current%/%max% [%bar%] %percent:3s%% %message%');
