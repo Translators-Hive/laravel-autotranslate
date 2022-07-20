@@ -14,10 +14,9 @@ class Translator
     /**
      * @param Translatable $collection
      * @param string $string
-     * @param string $type
      * @param string $locale
      */
-    public function translate(Translatable $collection, string $string, string $type, string $locale)
+    public function translate(Translatable $collection, string $string, string $locale)
     {
         $appLocale = app()->getLocale();
         if($locale != $appLocale) {

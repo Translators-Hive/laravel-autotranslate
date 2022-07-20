@@ -86,20 +86,20 @@ class TranslateCommand extends Command
 
             $stringsCollections = null;
             if(app()->getLocale() == $locale) {
-                $translator->saveTranslations($collection, $type, $locale);
+                $translator->saveTranslations($collection, 'json', $locale);
             }
             else {
-                if ($this->ask('Total Characters: '.$totalChars.' Do you want to translate them? (yes/no)','yes')) {
+                if ($this->ask('\nTotal phrases:'.$totalStrings.'. Total Characters: '.$totalChars.' Do you want to translate them? (yes/no)','yes')) {
                     $translationsProgressBar = $this->output->createProgressBar($totalStrings);
                     $translationsProgressBar->setMessage("Translating strings for ".$locale."...");
                     $translationsProgressBar->setFormat('%current%/%max% [%bar%] %percent:3s%% %message%');
                     $translationsProgressBar->setMessage('Translating strings... This is the best time to have your cup of coffee');
                     $translationsProgressBar->start();
                     foreach($strings as $string => $val) {
-                        $collection = $translator->translate($collection, $string, $type, $locale);
+                        $collection = $translator->translate($collection, $string, $locale);
                         $translationsProgressBar->advance();
                     }
-                    $translator->saveTranslations($collection, $type, $locale);
+                    $translator->saveTranslations($collection, 'json', $locale);
                     $translationsProgressBar->finish();
                 }
             }
