@@ -98,7 +98,7 @@ class TranslateCommand extends Command
                     $translationsProgressBar = $this->output->createProgressBar($totalStrings);
                     $translationsProgressBar->setMessage("Translating strings for ".$locale."...");
                     $translationsProgressBar->setFormat('%current%/%max% [%bar%] %percent:3s%% %message%');
-                    $translationsProgressBar->setMessage('Translating strings... This is the best time to have your cup of coffee');
+                    $translationsProgressBar->setMessage('Translating texts to '.$locale.'... This is the best time to have your cup of coffee');
                     $translationsProgressBar->start();
                     foreach($strings as $string => $val) {
                         $collection = $translator->translate($collection, $string, $locale);
@@ -108,6 +108,7 @@ class TranslateCommand extends Command
                     $translationsProgressBar->finish();
                 }
             }
+            $progressBar->setMessage("Done for ".$locale."...");
             $progressBar->advance();
         }
 
